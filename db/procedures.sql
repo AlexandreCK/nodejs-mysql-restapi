@@ -1,24 +1,30 @@
-USE company;
+USE agencia_viatges;
 
 DELIMITER $$
-USE `company`$$
+USE `agencia_viatges`$$
 
-CREATE PROCEDURE `employeeAddOrEdit` (
+CREATE PROCEDURE `clientAddOrEdit` (
   IN _id INT,
-  IN _name VARCHAR(45),
-  IN _salary INT
+  IN _nom VARCHAR(255),
+  IN _cognoms VARCHAR(255),
+  IN _telefon VARCHAR(15),
+  IN _correu_electronic VARCHAR(255),
+  IN _desti_de_viatge VARCHAR(255)
 )
 BEGIN 
   IF _id = 0 THEN
-    INSERT INTO employee (name, salary)
-    VALUES (_name, _salary);
+    INSERT INTO clients (nom, cognoms, telefon, correu_electronic, desti_de_viatge)
+    VALUES (_nom, _cognoms, _telefon, _correu_electronic, _desti_de_viatge);
 
     SET _id = LAST_INSERT_ID();
   ELSE
-    UPDATE employee
+    UPDATE clients
     SET
-    name = _name,
-    salary = _salary
+    nom = _nom,
+    cognoms = _cognoms,
+    telefon = _telefon,
+    correu_electronic = _correu_electronic,
+    desti_de_viatge = _desti_de_viatge
     WHERE id = _id;
   END IF;
 
